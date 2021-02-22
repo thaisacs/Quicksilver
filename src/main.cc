@@ -26,6 +26,13 @@
 #include "git_hash.hh"
 #include "git_vers.hh"
 
+extern "C" {
+  void init_timestep_();
+  void begin_timestep_();
+  void end_timestep_();
+  void exit_timestep_();
+}
+
 void gameOver();
 void cycleInit( bool loadBalance );
 void cycleTracking(MonteCarlo* monteCarlo);
@@ -37,6 +44,7 @@ MonteCarlo *mcco  = NULL;
 
 int main(int argc, char** argv)
 {
+   init_timestep_();
    mpiInit(&argc, &argv);
    printBanner(GIT_VERS, GIT_HASH);
 
@@ -54,6 +62,7 @@ int main(int argc, char** argv)
 
    for (int ii=0; ii<nSteps; ++ii)
    {
+      //begin_timestep_();
       cycleInit( bool(loadBalance) );
       cycleTracking(mcco);
       cycleFinalize();
@@ -63,6 +72,7 @@ int main(int argc, char** argv)
             mcco->processor_info->rank,
             mcco->processor_info->num_processors,
             mcco->processor_info->comm_mc_world );
+      //end_timestep_();
    }
 
 
@@ -79,8 +89,9 @@ int main(int argc, char** argv)
    delete mcco;
 #endif
 
+   exit_timestep_();
    mpiFinalize();
-   
+
    return 0;
 }
 
