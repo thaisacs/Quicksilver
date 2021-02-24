@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 
    for (int ii=0; ii<nSteps; ++ii)
    {
-      //begin_timestep_();
+      begin_timestep_();
       cycleInit( bool(loadBalance) );
       cycleTracking(mcco);
       cycleFinalize();
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
             mcco->processor_info->rank,
             mcco->processor_info->num_processors,
             mcco->processor_info->comm_mc_world );
-      //end_timestep_();
+      end_timestep_();
    }
 
 

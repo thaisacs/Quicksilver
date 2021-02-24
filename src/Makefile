@@ -94,10 +94,11 @@ SHELL = /bin/bash
 # Set your desired C++ compiler and any necessary flags.
 # The interpretation of each of these four variables is described above.
 # A number of examples for machines we regularly run on are given below.
-CXX = mpic++
+#CXX = mpic++
 CXXFLAGS =
-CPPFLAGS = 
-LDFLAGS = ../../kernel_stats/kernel_stats.o
+CPPFLAGS =
+LDFLAGS =
+# LDFLAGS = ../../../utils/kernel_stats.o
 
 ###############################################################################
 # Very simple GCC build with OpenMP but without MPI.  
@@ -119,12 +120,13 @@ LDFLAGS = ../../kernel_stats/kernel_stats.o
 ###############################################################################
 #OPENMP_FLAGS = -DHAVE_OPENMP -fopenmp
 #OPENMP_LDFLAGS = -fopenmp
-#MPI_FLAGS = -DHAVE_MPI
+MPI_FLAGS = -DHAVE_MPI
 #OPTFLAGS = -g -O2
 #
-#CXX=mpicxx
+CXX=mpicxx
 #CXXFLAGS = -std=c++11 $(OPTFLAGS) -Wpedantic
 #CPPFLAGS = $(MPI_FLAGS) $(OPENMP_FLAGS)
+CPPFLAGS = $(MPI_FLAGS)
 #LDFLAGS = $(OPENMP_LDFLAGS) 
 
 
@@ -274,7 +276,7 @@ SOURCES= \
     CycleTracking.cc \
     DecompositionObject.cc \
     DirectionCosine.cc \
-	EnergySpectrum.cc \
+		EnergySpectrum.cc \
     GlobalFccGrid.cc \
     GridAssignmentObject.cc \
     InputBlock.cc \
@@ -308,7 +310,7 @@ SOURCES= \
     main.cc \
     parseUtils.cc \
     utils.cc \
-    utilsMpi.cc 
+    utilsMpi.cc
 
 CC_OBJECTS=$(SOURCES:.cc=.o)
 
@@ -323,8 +325,8 @@ git_vers.hh:
 %.o: %.cc
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} -c $< -o $@
 
-${Quicksilver_EXE}: git_hash.hh git_vers.hh ${CC_OBJECTS}  
-	${CXX} ${CXXFLAGS} ${LDFLAGS} -o ${Quicksilver_EXE} ${CC_OBJECTS}
+${Quicksilver_EXE}: git_hash.hh git_vers.hh ${CC_OBJECTS}
+	${CXX} ${CXXFLAGS} ${LDFLAGS} -o ${Quicksilver_EXE} ${CC_OBJECTS} ../../../utils/kernel_stats.o
 
 clean:
 	rm -f *.o git_hash.hh git_vers.hh .depend load.map *.core *.optrpt

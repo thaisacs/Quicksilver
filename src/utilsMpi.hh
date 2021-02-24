@@ -53,8 +53,8 @@ void mpiRequestFree    ( MPI_Request *request );
 #else
 
 #include "qs_assert.hh"
-#include <stdio.h> 
-#include <stdlib.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     int count ;
