@@ -326,7 +326,7 @@ git_vers.hh:
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} -c $< -o $@
 
 ${Quicksilver_EXE}: git_hash.hh git_vers.hh ${CC_OBJECTS}
-	${CXX} ${CXXFLAGS} ${LDFLAGS} -o ${Quicksilver_EXE} ${CC_OBJECTS} ../../../utils/kernel_stats.o
+	${CXX} ${CXXFLAGS} ${LDFLAGS} -o ${Quicksilver_EXE} ${CC_OBJECTS} ../../../utils/obj/*.o
 
 clean:
 	rm -f *.o git_hash.hh git_vers.hh .depend load.map *.core *.optrpt
